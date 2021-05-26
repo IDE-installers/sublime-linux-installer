@@ -8,4 +8,8 @@ Those commands are already pasted in this script from the [official web site](ht
 This script might work on **all** Linux distributions.
 
 # Usage
+```
+chmod +x install_sublime.sh
+sudo bash install_sublime.sh
+```
 When you execute this script you have to choose which package manager you are using and and which channel to use.
