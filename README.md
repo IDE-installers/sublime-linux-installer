@@ -15,4 +15,4 @@ After executing this script you have to:
 2. Choose which channel to use
 
 # Note
-When you execute this script, if you do not enter your choices correctly it will not work
+When you execute this script, if you do not enter your choices correctly it will not work properly.
