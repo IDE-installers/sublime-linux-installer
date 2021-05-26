@@ -13,3 +13,6 @@ sudo bash install_sublime.sh
 When you execute this script you have to:
 1. Choose which package manager you are using
 2. Choose which channel to use
+
+# Note
+**If you do not enter this things correctly the script will not work**
