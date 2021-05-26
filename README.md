@@ -1,7 +1,7 @@
 # Sublime-installer
-Sublime Text installer for Linux written in Shell.
+Sublime Text installer for Linux written in Bash.
 
-This simple shell script is for those people who are tired of installing Sublime Text on their Linux machines by copying and pasting commands in terminal all the time.
+This simple Bash script is for those people who are tired of installing Sublime Text on their Linux machines by copying and pasting commands in terminal all the time.
 
 Those commands are already pasted in this script from the official web site.
 
