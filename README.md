@@ -1,6 +1,6 @@
 # Sublime-installer
 
-This bash script installs latest Sublime Text version.
+This bash script installs the latest Sublime Text version.
 
 It is for those people who are tired of installing Sublime Text on their Linux machines by copying and pasting commands in terminal all the time, or for those people that just want to save their time.
 
