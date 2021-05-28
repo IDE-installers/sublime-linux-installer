@@ -4,9 +4,9 @@ This bash script installs latest Sublime Text version.
 
 It is for those people who are tired of installing Sublime Text on their Linux machines by copying and pasting commands in terminal all the time, or for those people that just want to save their time.
 
-Those commands are already pasted in this script from Sublime Text [official web site](https://www.sublimetext.com/), from [here](https://www.sublimetext.com/docs/linux_repositories.html).
+This script contains shell commands from Sublime Text [official web site](https://www.sublimetext.com/), from [here](https://www.sublimetext.com/docs/linux_repositories.html).
 
-This script might work on **all** Linux distributions.
+This script should work on **all** Linux distributions.
 
 # Usage
 ```
