@@ -26,7 +26,7 @@ function configure(){
 function install(){
     printf "Installing...\n"
     case $PM in
-        apt)
+        apt | APT)
             wget -qO https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add 
             sudo apt-get install apt-transport-https
             
@@ -39,13 +39,14 @@ function install(){
                 d | D)
                     echo "deb https://download.sublimetext.com/ apt/dev/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
                     ;;
+				*) echo "'${channel}' is invalid choice"; exit ;;
             esac
 
             sudo apt-get update
             sudo apt-get install sublime-text
             ;;
 
-        pacman)
+        pacman | PACMAN)
             curl -O https://download.sublimetext.com/sublimehq-pub.gpg && sudo pacman-key --add sublimehq-pub.gpg && sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg
         
             case $channel in 
@@ -57,12 +58,13 @@ function install(){
                 d | D)
                     echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/dev/x86_64" | sudo tee -a /etc/pacman.conf
                     ;;
+				*) echo "'${channel}' is invalid choice"; exit ;;
             esac
 
             sudo pacman -Syu sublime-text
             ;;
 
-        yum)
+        yum | YUM)
 
             sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
 
@@ -75,12 +77,13 @@ function install(){
                 d | D)
                     sudo yum-config-manager --add-repo https://download.sublimetext.com/rpm/dev/x86_64/sublime-text.repo
                     ;;
+				*) echo "'${channel}' is invalid choice"; exit ;;
             esac
 
             sudo yum install sublime-text
             ;;
 
-        dnf)
+        dnf | DNF)
 
             sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
 
@@ -93,12 +96,13 @@ function install(){
                 d | D)
                     sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/dev/x86_64/sublime-text.repo
                     ;;
+				*) echo "'${channel}' is invalid choice"; exit ;;
             esac
 
             sudo sudo dnf install sublime-text
             ;;
 
-        zypper)
+        zypper | ZYPPER)
 
             sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
 
@@ -111,15 +115,13 @@ function install(){
                 d | D)
                     sudo zypper addrepo -g -f https://download.sublimetext.com/rpm/dev/x86_64/sublime-text.repo
                     ;;
+				*) echo "'${channel}' is invalid choice"; exit ;;
             esac
 
             sudo zypper install sublime-text
             ;;
 
-        *)
-            echo "Something went wrong!"
-            exit
-            ;;
+        *) echo "${PM} is invalid choice!"; exit ;;
 
     esac
 
