@@ -16,3 +16,4 @@ sudo bash install_sublime.sh
 After executing this script you have to:
 1. Choose which package manager you are using
 2. Choose which channel to use
+3. Wait until script will install Sublime Text
