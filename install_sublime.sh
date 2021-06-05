@@ -4,12 +4,12 @@
 
 # function to configure the installer
 function configure(){
+    printf "Sublime Text installer for Linux\n"
+    echo "Before you install Sublime Text, you need to configure some things "
+    
     # lists of valid options
     LPM=("apt" "pacman" "yum" "dnf" "zypper") # [L]ist of [P]ackage [M]anagers
     channelL=("s" "S" "d" "D") # s and S is stable, d and D is Dev
-
-    printf "Install Sublime Text tool\n"
-    echo "Before you install Sublime Text, you need to configure some things "
 
     printf "\nWhich package manager are you using?\n"
     for eachPM in "${LPM[@]}"; do echo $eachPM; done
