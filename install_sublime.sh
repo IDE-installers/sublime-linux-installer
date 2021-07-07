@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # sublime text installer for linux
 # this script is made of functions, so you can easily modify it
 
