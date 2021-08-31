@@ -29,7 +29,7 @@ function install(){
     printf "Installing...\n"
     case $PM in
         apt | APT)
-            wget -qO https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add 
+            wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
             sudo apt-get install apt-transport-https
             
             case $channel in 
