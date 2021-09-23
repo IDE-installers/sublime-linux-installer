@@ -63,7 +63,7 @@ function install(){
                 *) echo "'${channel}' is invalid choice"; exit ;;
             esac
 
-            sudo pacman -Syu sublime-text
+            sudo pacman -S sublime-text
             ;;
 
         yum | YUM)
