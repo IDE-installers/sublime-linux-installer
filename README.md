@@ -8,7 +8,13 @@ This script contains shell commands from Sublime Text [official web site](https:
 
 This script should work on **all** Linux distributions.
 
-# Usage
+## How to run it?
+First clone the code: 
 ```
-sudo bash install_sublime.sh
+git clone https://github.com/IDE-installers/sublime-linux-installer
+```
+
+Go the the installer's directory and run it
+```
+cd sublime-linux-installer/; sudo bash install_sublime.sh
 ```
