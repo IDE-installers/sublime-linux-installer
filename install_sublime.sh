@@ -1,129 +1,72 @@
 #!/bin/bash
 
-# sublime text installer for linux
-# this script is made of functions, so you can easily modify it
-
-
-# function to configure the installer
 function configure(){
     printf "Sublime Text installer for Linux\n"
-    echo "Before you install Sublime Text, you need to configure some things "
+    sleep 1.5s
     
-    # lists of valid options
-    LPM=("apt" "pacman" "yum" "dnf" "zypper") # [L]ist of [P]ackage [M]anagers
-    channelL=("s" "S" "d" "D") # s and S is stable, d and D is Dev
-
-    printf "\nWhich package manager are you using?\n"
-    for eachPM in "${LPM[@]}"; do echo $eachPM; done
-    echo
-
-    read PM # [P]ackage [M]anager
-
-    printf "Which channel to use? [ [S]table or [D]ev ]\n"
-    read channel
+    if [ -x "$(command -v pacman)" ]; then
+        PM=pacman # [P]ackage[M]anager
+    elif [ -x "$(command -v apt-get)" ]; then
+        PM=apt-get
+    elif [ -x "$(command -v dnf)" ]; then
+        PM=dnf
+    elif [ -x "$(command -v yum)" ]; then
+        PM=yum
+    elif [ -x "$(command -v zypper)" ]; then
+        PM=zypper
+    else
+        echo "Sorry, Your package manager is not supported!"
+        echo "Install Sublime manually: https://www.sublimetext.com/download"
+        exit 1
+    fi
 }
 
 
-# function to install sublime text
 function install(){
     printf "Installing...\n"
     case $PM in
-        apt | APT)
-            wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+        apt-get)
+            wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
             sudo apt-get install apt-transport-https
-            
-            case $channel in 
-                # stable
-                s | S)
-                    echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-                    ;;
-                # Dev
-                d | D)
-                    echo "deb https://download.sublimetext.com/ apt/dev/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-                    ;;
-                *) echo "'${channel}' is invalid choice"; exit ;;
-            esac
 
+#           Install stable channel
+            echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+
+#           Update packages and install sublime
             sudo apt-get update
-            sudo apt-get install sublime-text
+            sudo apt-get install sublime-text -y
             ;;
 
-        pacman | PACMAN)
+        pacman)
             curl -O https://download.sublimetext.com/sublimehq-pub.gpg && sudo pacman-key --add sublimehq-pub.gpg && sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg
         
-            case $channel in 
-
-                s | S)
-                    echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/x86_64" | sudo tee -a /etc/pacman.conf
-                    ;;
-
-                d | D)
-                    echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/dev/x86_64" | sudo tee -a /etc/pacman.conf
-                    ;;
-                *) echo "'${channel}' is invalid choice"; exit ;;
-            esac
-
-            sudo pacman -S sublime-text
+            echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/x86_64" | sudo tee -a /etc/pacman.conf
+            sudo pacman -Syu sublime-text --noconfirm
             ;;
 
-        yum | YUM)
+        dnf)
 
             sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
 
-            case $channel in 
-                
-                s | S)
-                    sudo yum-config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
-                    ;;
-                
-                d | D)
-                    sudo yum-config-manager --add-repo https://download.sublimetext.com/rpm/dev/x86_64/sublime-text.repo
-                    ;;
-                *) echo "'${channel}' is invalid choice"; exit ;;
-            esac
-
-            sudo yum install sublime-text
+            sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
+            sudo sudo dnf install sublime-text -y
             ;;
 
-        dnf | DNF)
+        yum)
 
             sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
 
-            case $channel in 
-                
-                s | S)
-                    sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
-                    ;;
-                
-                d | D)
-                    sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/dev/x86_64/sublime-text.repo
-                    ;;
-                *) echo "'${channel}' is invalid choice"; exit ;;
-            esac
-
-            sudo sudo dnf install sublime-text
+            sudo yum-config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
+            sudo yum install sublime-text -y
             ;;
 
-        zypper | ZYPPER)
+        zypper)
 
             sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
 
-            case $channel in 
-                
-                s | S)
-                    sudo zypper addrepo -g -f https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
-                    ;;
-                
-                d | D)
-                    sudo zypper addrepo -g -f https://download.sublimetext.com/rpm/dev/x86_64/sublime-text.repo
-                    ;;
-                *) echo "'${channel}' is invalid choice"; exit ;;
-            esac
-
+            sudo zypper addrepo -g -f https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
             sudo zypper install sublime-text
             ;;
-
-        *) echo "${PM} is invalid choice!"; exit ;;
 
     esac
 
