@@ -1,3 +1,6 @@
+## Note
+At some point the commands to install sublime text (or other text editors) can be changed by the Devs, so this installer can stop working properly after a perioud of time (scince I'm not monitoring this so often).
+
 # Sublime-installer
 
 This bash script installs the latest Sublime Text version.
