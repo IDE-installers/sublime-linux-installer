@@ -21,7 +21,7 @@ This script should work on **almost all** Linux distributions.
 
 
 ## How to run it?
-First clone the code: 
+First download it: 
 ```
 git clone https://github.com/IDE-installers/sublime-linux-installer
 ```
