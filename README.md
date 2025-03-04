@@ -6,16 +6,16 @@ It is for those people who are tired of installing Sublime Text on their Linux m
 
 This script contains shell commands from Sublime Text [official web site](https://www.sublimetext.com/), from [here](https://www.sublimetext.com/docs/linux_repositories.html).
 
-And it installs the Stable Build (Not Dev)
+And it installs the Stable Build (Not Dev build)
 
 This script should work on **almost all** Linux distributions.
 
 # Note
 ***Sometimes the commands to install Sublime Text can be changed by the Devs, so at some point my script will become outdated.*** 
 
-***And scince I don't monitor the commands (from the official site) that often, I would recommend first checking them, and after that only running my scripts.***
+***Since I don't frequently monitor the official commands, would recommend checking them before running this script***
 
-***I will eventually check and if needed, edit (update) my scripts.***
+***I will eventually check and if needed, edit (update) my script.***
 
 ***My scripts just contain this official commands, plus a bunch of if's, functions and a switch case to make it all function correctly***
 
