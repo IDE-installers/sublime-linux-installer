@@ -1,4 +1,5 @@
 #!/bin/bash
+check=100
 
 # NOTE
 # This scripts installs the 'Stable' channnel of Sublime Text (4)
