@@ -1,15 +1,55 @@
 #!/bin/bash
 
+# NOTE
+# This scripts installs the 'Stable' channnel of Sublime Text (4)
+
 function configure(){
     printf "Sublime Text installer for Linux\n"
     sleep 1.5s
     
     if [ -x "$(command -v pacman)" ]; then
         PM=pacman # [P]ackage[M]anager
+#       Sublime supports officially x86_64 and aarch64, so I need user to tell me which one's he using
+        
+        echo "Is your system is using 'x86_64' or 'aarch64' architecture?"
+        echo -e "Options:\n 1-- x86_64\n 2-- aarch64\n"
+        read pacman_choice
+        case $pacman_choice in
+            1)
+            echo "Going to install Sublime Text Stable for Fedora 41/dnf5 or newer"
+            echo "Press ENTER to Proceed or CTRL + C to Cancel..."
+            read
+            pacman_choice='amd64'
+            ;;
+            2)
+                pacman_choice='arm64'
+                ;;
+            *)
+            echo "Invalid answer"
+            exit 1
+            ;;
+
+        esac
+
     elif [ -x "$(command -v apt-get)" ]; then
         PM=apt-get
     elif [ -x "$(command -v dnf)" ]; then
         PM=dnf
+        #
+        echo "Are you using 'Fedora 41/dnf5 or newer'? y/n"
+        read dnf_choice
+        case $dnf_choice in
+            y | Y | yes | YES)
+            echo "Going to install Sublime Text Stable for Fedora 41/dnf5 or newer"
+            echo "Press ENTER to Proceed or CTRL + C to Cancel..."
+            read
+            dnf_choice='newer'
+            ;;
+            *)
+            dnf_choice='older'
+            ;;
+
+        esac
     elif [ -x "$(command -v yum)" ]; then
         PM=yum
     elif [ -x "$(command -v zypper)" ]; then
@@ -26,34 +66,49 @@ function install(){
     printf "Installing...\n"
     case $PM in
         apt-get)
-            wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
-            sudo apt-get install apt-transport-https
+#           Install the GPG key
+            wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo tee /etc/apt/keyrings/sublimehq-pub.asc > /dev/null
 
 #           Install stable channel
-            echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+            echo -e 'Types: deb\nURIs: https://download.sublimetext.com/\nSuites: apt/stable/\nSigned-By: /etc/apt/keyrings/sublimehq-pub.asc' | sudo tee /etc/apt/sources.list.d/sublime-text.sources
 
-#           Update packages and install sublime
+#           Update apt sources and install Sublime Text
             sudo apt-get update
             sudo apt-get install sublime-text -y
             ;;
 
         pacman)
             curl -O https://download.sublimetext.com/sublimehq-pub.gpg && sudo pacman-key --add sublimehq-pub.gpg && sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg
-        
+
+#           Choose architecture
+            
+            if [ $pacman_choice == 'amd64' ]; then
+#           Select "Stable x86_64" Channel
             echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/x86_64" | sudo tee -a /etc/pacman.conf
+            
+            elif [ $pacman_choice = 'arm64' ]; then
+#           Stable aarch64
+            echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/aarch64" | sudo tee -a /etc/pacman.conf
+            fi
+            
             sudo pacman -Syu sublime-text --noconfirm
             ;;
 
         dnf)
-
             sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
 
-            sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
+            if [ $dnf_choice == 'newer' ] ; then
+#               Stable for Fedora 41/dnf5 or newer
+                sudo dnf config-manager addrepo --from-repofile=https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
+            elif [ $dnf_choice == 'older' ]; then 
+#               Just 'Stable'
+                sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
+            fi
+
             sudo dnf install sublime-text -y
             ;;
 
         yum)
-
             sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
 
             sudo yum-config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
@@ -61,7 +116,6 @@ function install(){
             ;;
 
         zypper)
-
             sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
 
             sudo zypper addrepo -g -f https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
