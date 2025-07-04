@@ -47,7 +47,8 @@ function check(){
 
     if [[ remote_check -gt check ]]; then
         echo "A newer version of installer is available: $remote_check (currently using: $check)"
-        echo "It's recommended to use the latest one scince this one has a chance of not working anymore"
+        echo "It's recommended to use the latest version scince this one has a chance of not working properly anymore"
+        echo -e "Download latest version with:\nwget -N https://raw.githubusercontent.com/ide-installers/sublime-linux-installer/main/install_sublime.sh"
     exit
     
     else
