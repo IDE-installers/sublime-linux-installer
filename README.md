@@ -13,15 +13,21 @@ This script supports **most of** Linux distributions (except some niche ones lik
 
 ***I don't often monitor the commands***
 
+## How to download
 
-## How to run it?
-First download it: 
+Just use wget:
 ```
-git clone https://github.com/IDE-installers/sublime-linux-installer
+wget -N https://raw.githubusercontent.com/ide-installers/sublime-linux-installer/main/install_sublime.sh
 ```
 
-Go the the installer's directory and run it
+Or use git: 
 ```
-cd sublime-linux-installer/ ; bash install_sublime.sh
+git clone https://github.com/IDE-installers/sublime-linux-installer && cd sublime-linux-installer/
 ```
-You'll have to enter sudo password
+
+And execute it with bash
+```
+bash install_sublime.sh
+```
+
+*You'll have to enter sudo password*
