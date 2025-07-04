@@ -1,9 +1,12 @@
 #!/bin/bash
 check=100
 
+# When the commands to install Sublime Text will change, after modifying this script I'll also increase the 'check' number
+# So that when user wants to run it gets notified that it's time to update the script 
+
 # NOTE: it installs the 'Stable' channel
 
-# function check if a command exists
+# function to check if a command exists
 function check_cmd(){
     if ! [ `command -v $1`  >/dev/null 2>&1 ]; then
         echo "Please install '$1' package"
@@ -43,8 +46,8 @@ function check(){
     fi
 
     if [[ remote_check -gt check ]]; then
-        echo "A newer version of installer is available: $remote_check (currently installed: $check)"
-        echo "It's recommended to install it scince this one maybe won't work anymore"
+        echo "A newer version of installer is available: $remote_check (currently using: $check)"
+        echo "It's recommended to use the latest one scince this one has a chance of not working anymore"
     exit
     
     else
