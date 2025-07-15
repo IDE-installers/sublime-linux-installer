@@ -136,12 +136,12 @@ function install(){
 #           Choose architecture
             
             if [ $pacman_choice == 'amd64' ]; then
-#           Select "Stable x86_64" Channel
-            echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/x86_64" | sudo tee -a /etc/pacman.conf
+#               Select "Stable x86_64" Channel
+                echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/x86_64" | sudo tee -a /etc/pacman.conf
             
             elif [ $pacman_choice = 'arm64' ]; then
-#           Stable aarch64
-            echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/aarch64" | sudo tee -a /etc/pacman.conf
+#               Stable aarch64
+                echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/aarch64" | sudo tee -a /etc/pacman.conf
             fi
             
             sudo pacman -Syu sublime-text --noconfirm
