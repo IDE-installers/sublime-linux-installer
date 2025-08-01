@@ -2,7 +2,7 @@
 check=100
 
 # When the commands to install Sublime Text will change, after modifying this script I'll also increase the 'check' number
-# So that when user wants to run it gets notified that it's time to update the script 
+# So that when user wants to execute this script, user will be notified that it's outdated
 
 # NOTE: it installs the 'Stable' channel
 
