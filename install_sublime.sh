@@ -9,7 +9,7 @@ check=100
 # function to check if a command exists
 function check_cmd(){
     if ! [ `command -v $1`  >/dev/null 2>&1 ]; then
-        echo "Please install '$1' package"
+        echo "Sorry, '$1' package is required, install it with your system's package manager"
         exit 1
     fi
 }
